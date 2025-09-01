@@ -18,7 +18,6 @@ struct StatsMainView: View {
             Text("Your Focus Journey")
                 .font(.title2.weight(.bold))
                 .foregroundColor(.black)
-                .padding(.top, 32)
             
             // Today's Stats
             VStack(alignment: .leading, spacing: 20) {

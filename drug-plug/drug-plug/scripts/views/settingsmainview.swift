@@ -18,7 +18,6 @@ struct SettingsMainView: View {
             Text("Settings")
                 .font(.title2.weight(.bold))
                 .foregroundColor(.black)
-                .padding(.top, 32)
             
             VStack(alignment: .leading, spacing: 16) {
                 Text("WEBSITE BLOCKING")

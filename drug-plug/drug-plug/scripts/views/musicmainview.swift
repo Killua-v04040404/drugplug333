@@ -11,23 +11,6 @@ struct MusicMainView: View {
     
     var body: some View {
         VStack(spacing: 24) {
-                    .foregroundColor(.gray)
-                    .tracking(1)
-                    .padding(.horizontal, 32)
-                
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 16) {
-                    ForEach(musicPlayer.focusPlaylists) { track in
-                        TrackCard(track: track)
-                    }
-                }
-                .padding(.horizontal, 32)
-            }
-            
-            Spacer()
-        }
-    }
-}
-
 struct CompactMusicPlayerView: View {
     @EnvironmentObject var musicPlayer: MusicPlayerService
     
