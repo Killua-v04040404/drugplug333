@@ -14,36 +14,11 @@ struct SettingsMainView: View {
     
     var body: some View {
         VStack(spacing: 24) {
-            // Header with window controls
-            HStack {
-                HStack(spacing: 8) {
-                    Circle().fill(Color.red).frame(width: 12, height: 12)
-                    Circle().fill(Color.orange).frame(width: 12, height: 12)
-                    Circle().fill(Color.green).frame(width: 12, height: 12)
-                }
-                
-                Spacer()
-                
-                Text("Settings")
-                    .font(.headline.weight(.medium))
-                    .foregroundColor(.black)
-                
-                Spacer()
-                
-                Button(action: {}) {
-                    Image(systemName: "cup.and.saucer.fill")
-                        .font(.title3)
-                        .foregroundColor(.gray)
-                        .frame(width: 32, height: 32)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color.gray.opacity(0.1))
-                        )
-                }
-                .buttonStyle(PlainButtonStyle())
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 16)
+            // Header
+            Text("Settings")
+                .font(.title2.weight(.bold))
+                .foregroundColor(.black)
+                .padding(.top, 32)
             
             VStack(alignment: .leading, spacing: 16) {
                 Text("WEBSITE BLOCKING")
