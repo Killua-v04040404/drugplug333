@@ -18,6 +18,7 @@ struct SettingsMainView: View {
             Text("Settings")
                 .font(.title2.weight(.bold))
                 .foregroundColor(.black)
+                .padding(.top, 24)
             
             VStack(alignment: .leading, spacing: 16) {
                 Text("WEBSITE BLOCKING")
@@ -77,6 +78,7 @@ struct SettingsMainView: View {
             
             Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .sheet(isPresented: $showingBlockList) {
             BlockListView()
         }

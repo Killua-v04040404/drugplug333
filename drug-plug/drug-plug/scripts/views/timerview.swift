@@ -19,150 +19,148 @@ struct TimerView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 0) {
-                ScrollView {
-                    VStack(spacing: 32) {
-                        // Progress dots
-                        HStack(spacing: 8) {
-                            ForEach(0..<7, id: \.self) { index in
-                                Circle()
-                                    .fill(index == 0 ? Color.red : Color.gray.opacity(0.3))
-                                    .frame(width: 8, height: 8)
-                            }
+            ScrollView {
+                VStack(spacing: 32) {
+                    // Progress dots
+                    HStack(spacing: 8) {
+                        ForEach(0..<7, id: \.self) { index in
+                            Circle()
+                                .fill(index == 0 ? Color.red : Color.gray.opacity(0.3))
+                                .frame(width: 8, height: 8)
                         }
-                        .padding(.top, 24)
+                    }
+                    .padding(.top, 24)
+                    
+                    // Focus Question Section
+                    VStack(spacing: 24) {
+                        Text("What's your focus?")
+                            .font(.title2.weight(.semibold))
+                            .foregroundColor(.black)
                         
-                        // Focus Question Section
-                        VStack(spacing: 24) {
-                            Text("What's your focus?")
-                                .font(.title2.weight(.semibold))
-                                .foregroundColor(.black)
-                            
-                            // Category selector
-                            Button(action: { showingCategoryPicker = true }) {
-                                HStack(spacing: 8) {
-                                    Circle()
-                                        .fill(Color.red)
-                                        .frame(width: 8, height: 8)
-                                    
-                                    Text(selectedCategory)
-                                        .font(.subheadline.weight(.medium))
-                                        .foregroundColor(.black)
-                                    
-                                    Image(systemName: "chevron.down")
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-                                }
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 12)
-                                .background(
-                                    Capsule()
-                                        .fill(Color.white)
-                                        .overlay(
-                                            Capsule()
-                                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                                        )
-                                        .shadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
-                                )
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            .popover(isPresented: $showingCategoryPicker) {
-                                VStack(alignment: .leading, spacing: 8) {
-                                    ForEach(categories, id: \.self) { category in
-                                        Button(category) {
-                                            selectedCategory = category
-                                            showingCategoryPicker = false
-                                        }
-                                        .foregroundColor(.black)
-                                        .padding(.horizontal, 16)
-                                        .padding(.vertical, 8)
-                                    }
-                                }
-                                .padding(8)
-                                .background(Color.white)
-                            }
-                            
-                            // Intention input
-                            TextField("What will you focus on?", text: $intention)
-                                .textFieldStyle(PlainTextFieldStyle())
-                                .font(.subheadline)
-                                .foregroundColor(.black)
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 16)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .fill(Color.white)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                                        )
-                                        .shadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
-                                )
-                                .frame(maxWidth: min(geometry.size.width - 64, 300))
-                        }
-                        
-                        // Circular Timer
-                        CircularTimerView()
-                            .frame(width: min(geometry.size.width - 100, 280), height: min(geometry.size.width - 100, 280))
-                        
-                        // Time display
-                        Text(timerManager.displayTime)
-                            .font(.system(size: min(geometry.size.width / 12, 32), weight: .light, design: .monospaced))
-                            .foregroundColor(.gray)
-                        
-                        // Session time range
-                        if !timerManager.isRunning {
-                            Text("21:14 → 09:46")
-                                .font(.caption.weight(.medium))
-                                .foregroundColor(.gray)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 6)
-                                .background(
-                                    Capsule()
-                                        .fill(Color.gray.opacity(0.1))
-                                )
-                        }
-                        
-                        // Start Session Button
-                        Button(action: toggleTimer) {
-                            Text(timerManager.isRunning ? "STOP SESSION" : "START SESSION")
-                                .font(.headline.weight(.bold))
-                                .foregroundColor(.white)
-                                .frame(maxWidth: min(geometry.size.width - 64, 250), minHeight: 50)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 25)
-                                        .fill(Color.red)
-                                        .shadow(color: .red.opacity(0.3), radius: 8, x: 0, y: 4)
-                                )
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .scaleEffect(timerManager.isRunning ? 0.98 : 1.0)
-                        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: timerManager.isRunning)
-                        
-                        // Timer settings button
-                        Button(action: { showingTimerSettings = true }) {
+                        // Category selector
+                        Button(action: { showingCategoryPicker = true }) {
                             HStack(spacing: 8) {
-                                Image(systemName: "timer")
-                                    .font(.subheadline)
-                                Text("Timer Settings")
+                                Circle()
+                                    .fill(Color.red)
+                                    .frame(width: 8, height: 8)
+                                
+                                Text(selectedCategory)
                                     .font(.subheadline.weight(.medium))
+                                    .foregroundColor(.black)
+                                
+                                Image(systemName: "chevron.down")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
                             }
-                            .foregroundColor(.gray)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 12)
                             .background(
-                                RoundedRectangle(cornerRadius: 16)
-                                    .fill(Color.gray.opacity(0.1))
+                                Capsule()
+                                    .fill(Color.white)
+                                    .overlay(
+                                        Capsule()
+                                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                                    )
+                                    .shadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
                             )
                         }
                         .buttonStyle(PlainButtonStyle())
-                        .padding(.bottom, 32)
+                        .popover(isPresented: $showingCategoryPicker) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                ForEach(categories, id: \.self) { category in
+                                    Button(category) {
+                                        selectedCategory = category
+                                        showingCategoryPicker = false
+                                    }
+                                    .foregroundColor(.black)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 8)
+                                }
+                            }
+                            .padding(8)
+                            .background(Color.white)
+                        }
+                        
+                        // Intention input
+                        TextField("What will you focus on?", text: $intention)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .font(.subheadline)
+                            .foregroundColor(.black)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 16)
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Color.white)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                                    )
+                                    .shadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
+                            )
+                            .frame(maxWidth: min(geometry.size.width - 64, 300))
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 32)
+                    
+                    // Circular Timer
+                    CircularTimerView()
+                        .frame(width: min(geometry.size.width - 100, 280), height: min(geometry.size.width - 100, 280))
+                    
+                    // Time display
+                    Text(timerManager.displayTime)
+                        .font(.system(size: min(geometry.size.width / 12, 32), weight: .light, design: .monospaced))
+                        .foregroundColor(.gray)
+                    
+                    // Session time range
+                    if !timerManager.isRunning {
+                        Text("21:14 → 09:46")
+                            .font(.caption.weight(.medium))
+                            .foregroundColor(.gray)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 6)
+                            .background(
+                                Capsule()
+                                    .fill(Color.gray.opacity(0.1))
+                            )
+                    }
+                    
+                    // Start Session Button
+                    Button(action: toggleTimer) {
+                        Text(timerManager.isRunning ? "STOP SESSION" : "START SESSION")
+                            .font(.headline.weight(.bold))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: min(geometry.size.width - 64, 250), minHeight: 50)
+                            .background(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .fill(Color.red)
+                                    .shadow(color: .red.opacity(0.3), radius: 8, x: 0, y: 4)
+                            )
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .scaleEffect(timerManager.isRunning ? 0.98 : 1.0)
+                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: timerManager.isRunning)
+                    
+                    // Timer settings button
+                    Button(action: { showingTimerSettings = true }) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "timer")
+                                .font(.subheadline)
+                            Text("Timer Settings")
+                                .font(.subheadline.weight(.medium))
+                        }
+                        .foregroundColor(.gray)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color.gray.opacity(0.1))
+                        )
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding(.bottom, 32)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 32)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .sheet(isPresented: $showingTimerSettings) {

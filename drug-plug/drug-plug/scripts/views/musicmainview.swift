@@ -10,7 +10,38 @@ struct MusicMainView: View {
     @EnvironmentObject var musicPlayer: MusicPlayerService
     
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 32) {
+            // Header
+            Text("Focus Music")
+                .font(.title2.weight(.bold))
+                .foregroundColor(.black)
+                .padding(.top, 24)
+            
+            // Compact Music Player
+            CompactMusicPlayerView()
+            
+            // Music Categories
+            VStack(alignment: .leading, spacing: 20) {
+                Text("FOCUS PLAYLISTS")
+                    .font(.caption.weight(.bold))
+                    .foregroundColor(.gray)
+                    .tracking(1)
+                    .padding(.horizontal, 32)
+                
+                LazyVStack(spacing: 8) {
+                    ForEach(musicPlayer.focusPlaylists.prefix(4)) { track in
+                        TrackCard(track: track)
+                    }
+                }
+                .padding(.horizontal, 32)
+            }
+            
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
 struct CompactMusicPlayerView: View {
     @EnvironmentObject var musicPlayer: MusicPlayerService
     
@@ -79,6 +110,7 @@ struct CompactMusicPlayerView: View {
                         .foregroundColor(.gray)
                 }
                 .buttonStyle(PlainButtonStyle())
+            }
         }
         .padding(24)
         .background(

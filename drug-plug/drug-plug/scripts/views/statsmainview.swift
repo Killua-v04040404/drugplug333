@@ -13,6 +13,12 @@ struct StatsMainView: View {
     @EnvironmentObject var statsManager: StatsManager
     
     var body: some View {
+        VStack(spacing: 32) {
+            // Header
+            Text("Your Focus Journey")
+                .font(.title2.weight(.bold))
+                .foregroundColor(.black)
+                .padding(.top, 24)
         VStack(spacing: 24) {
             // Header
             Text("Your Focus Journey")
@@ -80,6 +86,7 @@ struct StatsMainView: View {
             
             Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
