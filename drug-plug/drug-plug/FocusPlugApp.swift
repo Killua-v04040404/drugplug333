@@ -33,7 +33,6 @@ struct FocusPlugApp: App {
         .windowResizability(.contentMinSize)
         .windowStyle(.hiddenTitleBar)
         .defaultSize(width: 600, height: 700)
-        .defaultMinSize(width: 400, height: 500)
         
         MenuBarExtra("Focus Plug", systemImage: "brain.head.profile") {
             MenuBarView()

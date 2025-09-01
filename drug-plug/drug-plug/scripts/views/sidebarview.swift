@@ -1,15 +1,10 @@
-//
-//  sidebarview.swift
-//  drug-plug
-//
-//  Created by Morris Romagnoli on 31/08/2025.
-//
-
 import SwiftUI
 
 struct SidebarView: View {
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var timerManager: TimerManager
     @EnvironmentObject var blockerService: WebsiteBlockerService
+    @EnvironmentObject var musicPlayer: MusicPlayerService
     
     var body: some View {
         VStack(spacing: 20) {
@@ -158,10 +153,24 @@ struct SidebarItem: View {
                             endPoint: .bottomTrailing
                         )
                     )
-        }
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(
+                                isSelected ? Color.red.opacity(0.5) : Color.white.opacity(0.1),
+                                lineWidth: 1
+                            )
+                    )
+                    .shadow(
                         color: isSelected ? .red.opacity(0.4) : .clear,
                         radius: isSelected ? 8 : 0,
+                        x: 0,
                         y: isSelected ? 4 : 0
+                    )
+            )
+        }
+        .buttonStyle(PlainButtonStyle())
+        .onHover { hovering in
+            withAnimation(.easeInOut(duration: 0.2)) {
                 isHovered = hovering
             }
         }

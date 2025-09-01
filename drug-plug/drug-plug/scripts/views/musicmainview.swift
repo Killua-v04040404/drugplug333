@@ -11,19 +11,6 @@ struct MusicMainView: View {
     
     var body: some View {
         VStack(spacing: 24) {
-            // Header
-            Text("Focus Beats")
-                .font(.title2.weight(.bold))
-                .foregroundColor(.black)
-                .padding(.top, 32)
-            
-            // Current Track Player
-            CompactMusicPlayerView()
-            
-            // Music Categories
-            VStack(alignment: .leading, spacing: 16) {
-                Text("FOCUS PLAYLISTS")
-                    .font(.caption.weight(.bold))
                     .foregroundColor(.gray)
                     .tracking(1)
                     .padding(.horizontal, 32)
@@ -109,7 +96,6 @@ struct CompactMusicPlayerView: View {
                         .foregroundColor(.gray)
                 }
                 .buttonStyle(PlainButtonStyle())
-            }
         }
         .padding(24)
         .background(
